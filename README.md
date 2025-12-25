@@ -1,282 +1,287 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-1.0.0-gold?style=for-the-badge" alt="Version">
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
-  <img src="https://img.shields.io/badge/PWA-Ready-blue?style=for-the-badge" alt="PWA">
-  <img src="https://img.shields.io/badge/Security-Military%20Grade-red?style=for-the-badge" alt="Security">
+  <a href="README.md">🇧🇷 Português</a> •
+  <a href="README.en.md">🇺🇸 English</a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Versão-1.0.0-gold?style=for-the-badge" alt="Versão">
+  <img src="https://img.shields.io/badge/Licença-MIT-green?style=for-the-badge" alt="Licença">
+  <img src="https://img.shields.io/badge/PWA-Pronto-blue?style=for-the-badge" alt="PWA">
+  <img src="https://img.shields.io/badge/Segurança-Nível%20Militar-red?style=for-the-badge" alt="Segurança">
 </p>
 
 <h1 align="center">🔐 L2 Vault</h1>
-<h3 align="center">Fortress Protocol • Zero-Knowledge Password Manager</h3>
+<h3 align="center">Protocolo Fortaleza • Gerenciador de Senhas Zero-Knowledge</h3>
 
 <p align="center">
-  <strong>100% Offline • Military-Grade Encryption • Progressive Web App</strong>
+  <strong>100% Offline • Criptografia Militar • Progressive Web App</strong>
 </p>
 
 ---
 
-## 📋 Table of Contents
+## 📋 Índice
 
-- [Overview](#-overview)
-- [Key Features](#-key-features)
-- [Security Architecture](#-security-architecture)
-- [Technology Stack](#-technology-stack)
-- [Installation](#-installation)
-- [Usage Guide](#-usage-guide)
-- [Advanced Features](#-advanced-features)
-- [Password Generator](#-password-generator)
-- [API Reference](#-api-reference)
+- [Visão Geral](#-visão-geral)
+- [Funcionalidades](#-funcionalidades)
+- [Arquitetura de Segurança](#-arquitetura-de-segurança)
+- [Stack Tecnológica](#-stack-tecnológica)
+- [Instalação](#-instalação)
+- [Guia de Uso](#-guia-de-uso)
+- [Funcionalidades Avançadas](#-funcionalidades-avançadas)
+- [Gerador de Senhas](#-gerador-de-senhas)
+- [Referência da API](#-referência-da-api)
 - [Roadmap](#-roadmap)
-- [Contributing](#-contributing)
-- [License](#-license)
+- [Contribuindo](#-contribuindo)
+- [Licença](#-licença)
 
 ---
 
-## 🏰 Overview
+## 🏰 Visão Geral
 
-**L2 Vault** (Codename: *Fortress*) is a next-generation password manager built with a **Zero-Knowledge, Local-First** philosophy. Your secrets never leave your device. No servers. No sync. No trust required.
+**L2 Vault** (Codinome: *Fortress*) é um gerenciador de senhas de próxima geração construído com filosofia **Zero-Knowledge, Local-First**. Seus segredos nunca saem do seu dispositivo. Sem servidores. Sem sincronização. Sem necessidade de confiança.
 
-### Core Philosophy
+### Filosofia Central
 
-| Principle | Description |
-|-----------|-------------|
-| **🔒 Zero-Knowledge** | Your data is encrypted with keys derived from YOUR password. Even if someone steals the database, it's unreadable. |
-| **📱 Local-First** | All data lives on your device. No cloud sync, no account creation, no attack surface. |
-| **🛡️ Security by Design** | Military-grade cryptography (AES-256-GCM + Argon2id) from day one, not as an afterthought. |
-| **⚡ Radical Simplicity** | Open → Unlock → Copy. No configuration required. |
-
----
-
-## ✨ Key Features
-
-### Core Functionality
-- ✅ **Secure Credential Storage** - AES-256-GCM encrypted passwords in IndexedDB
-- ✅ **Master Password** - Argon2id key derivation (OWASP recommended)
-- ✅ **Tap-to-Copy** - Single tap copies password, shows toast notification
-- ✅ **Double-tap Email** - Double tap copies username/email
-- ✅ **Long-press Context Menu** - Edit, copy, or delete with visual feedback
-- ✅ **Search** - Real-time filtering by title, username, or category
-- ✅ **Categories** - Organize passwords by type (social, work, banking, etc.)
-- ✅ **Auto Favicons** - Automatic site icons with styled fallback
-- ✅ **Dark/Light Themes** - OLED-friendly dark mode with gold accents
-
-### Security Features
-- ✅ **Auto-Lock** - Configurable timeout (1-30 minutes)
-- ✅ **Clipboard Auto-Clear** - Clears copied passwords after timeout
-- ✅ **Encrypted Export/Import** - Backup with password-protected files
-- ✅ **Service Worker** - Full offline functionality
-
-### Advanced Features (NEW!)
-- ✅ **8-Mode Password Generator** - From quantum to memorable
-- ✅ **Decoy Vaults** - Multiple isolated vaults, swipe to switch
-- ✅ **Strength Meter** - Real-time password analysis with crack time estimation
+| Princípio | Descrição |
+|-----------|-----------|
+| **🔒 Zero-Knowledge** | Seus dados são criptografados com chaves derivadas da SUA senha. Mesmo se alguém roubar o banco de dados, será ilegível. |
+| **📱 Local-First** | Todos os dados vivem no seu dispositivo. Sem nuvem, sem criação de conta, sem superfície de ataque. |
+| **🛡️ Segurança by Design** | Criptografia de nível militar (AES-256-GCM + Argon2id) desde o primeiro dia, não como uma reflexão posterior. |
+| **⚡ Simplicidade Radical** | Abrir → Desbloquear → Copiar. Sem configuração necessária. |
 
 ---
 
-## 🔒 Security Architecture
+## ✨ Funcionalidades
 
-### Encryption Stack
+### Funcionalidades Principais
+- ✅ **Armazenamento Seguro** - Senhas criptografadas com AES-256-GCM no IndexedDB
+- ✅ **Senha Mestra** - Derivação de chave com Argon2id (recomendado pela OWASP)
+- ✅ **Toque para Copiar** - Um toque copia a senha, mostra notificação toast
+- ✅ **Duplo-toque para Email** - Duplo toque copia usuário/email
+- ✅ **Menu de Contexto** - Editar, copiar ou excluir com feedback visual (toque longo)
+- ✅ **Busca** - Filtragem em tempo real por título, usuário ou categoria
+- ✅ **Categorias** - Organize senhas por tipo (social, trabalho, banco, etc.)
+- ✅ **Favicons Automáticos** - Ícones de sites automaticamente com fallback estilizado
+- ✅ **Temas Claro/Escuro** - Modo escuro OLED-friendly com acentos dourados
+
+### Funcionalidades de Segurança
+- ✅ **Auto-Lock** - Timeout configurável (1-30 minutos)
+- ✅ **Limpeza de Clipboard** - Limpa senhas copiadas após timeout
+- ✅ **Export/Import Criptografado** - Backup com arquivos protegidos por senha
+- ✅ **Service Worker** - Funcionalidade 100% offline
+
+### Funcionalidades Avançadas (NOVO!)
+- ✅ **Gerador de Senhas 8-Modos** - De quântico a memorável
+- ✅ **Cofres Decoy** - Múltiplos cofres isolados, deslize para trocar
+- ✅ **Medidor de Força** - Análise em tempo real com estimativa de tempo para quebrar
+
+---
+
+## 🔒 Arquitetura de Segurança
+
+### Stack de Criptografia
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     USER'S MASTER PASSWORD                   │
+│                   SENHA MESTRA DO USUÁRIO                    │
 └─────────────────────────┬───────────────────────────────────┘
                           │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  Argon2id Key Derivation                                     │
-│  ├─ Memory: 64MB                                             │
-│  ├─ Iterations: 3                                            │
-│  ├─ Parallelism: 4                                           │
-│  └─ Salt: Cryptographically random (128-bit)                 │
+│  Derivação de Chave Argon2id                                 │
+│  ├─ Memória: 64MB                                            │
+│  ├─ Iterações: 3                                             │
+│  ├─ Paralelismo: 4                                           │
+│  └─ Salt: Criptograficamente aleatório (128-bit)             │
 └─────────────────────────┬───────────────────────────────────┘
                           │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  256-bit Encryption Key                                      │
+│  Chave de Criptografia 256-bit                               │
 └─────────────────────────┬───────────────────────────────────┘
                           │
                           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│  AES-256-GCM Encryption                                      │
-│  ├─ Mode: Galois/Counter Mode (authenticated)                │
-│  ├─ IV: Random 96-bit per encryption                         │
-│  └─ Tag: 128-bit authentication tag                          │
+│  Criptografia AES-256-GCM                                    │
+│  ├─ Modo: Galois/Counter Mode (autenticado)                  │
+│  ├─ IV: Aleatório 96-bit por criptografia                    │
+│  └─ Tag: Tag de autenticação 128-bit                         │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Security Guarantees
+### Garantias de Segurança
 
-| Threat | Protection |
-|--------|------------|
-| Database theft | AES-256-GCM encryption renders data unreadable |
-| Brute force | Argon2id makes password cracking computationally infeasible |
-| Memory dump | Keys exist only during session, cleared on lock |
-| Network interception | 100% offline, no network requests for sensitive data |
-| Clipboard sniffing | Auto-clear after configurable timeout |
+| Ameaça | Proteção |
+|--------|----------|
+| Roubo de banco de dados | Criptografia AES-256-GCM torna dados ilegíveis |
+| Força bruta | Argon2id torna quebra de senha computacionalmente inviável |
+| Dump de memória | Chaves existem apenas durante sessão, limpas ao bloquear |
+| Interceptação de rede | 100% offline, sem requisições de rede para dados sensíveis |
+| Clipboard sniffing | Auto-clear após timeout configurável |
 
 ---
 
-## 🛠️ Technology Stack
+## 🛠️ Stack Tecnológica
 
 ### Frontend
-| Technology | Purpose |
-|------------|---------|
-| **Vanilla JavaScript** | Core logic (ES Modules) |
-| **CSS3** | Glassmorphism design, animations |
-| **HTML5** | Semantic markup |
+| Tecnologia | Propósito |
+|------------|-----------|
+| **Vanilla JavaScript** | Lógica central (ES Modules) |
+| **CSS3** | Design glassmorphism, animações |
+| **HTML5** | Marcação semântica |
 
-### Cryptography
-| Library | Purpose |
-|---------|---------|
-| **Web Crypto API** | AES-256-GCM encryption/decryption |
-| **argon2-browser** | Argon2id password hashing |
+### Criptografia
+| Biblioteca | Propósito |
+|------------|-----------|
+| **Web Crypto API** | Criptografia/descriptografia AES-256-GCM |
+| **argon2-browser** | Hash de senha Argon2id |
 
-### Storage
-| Technology | Purpose |
-|------------|---------|
-| **IndexedDB** | Encrypted credential storage |
-| **LocalStorage** | Settings and favicon cache |
+### Armazenamento
+| Tecnologia | Propósito |
+|------------|-----------|
+| **IndexedDB** | Armazenamento criptografado de credenciais |
+| **LocalStorage** | Configurações e cache de favicons |
 
 ### PWA
-| Feature | Implementation |
-|---------|---------------|
-| **Service Worker** | Offline caching (cache-first strategy) |
-| **Web App Manifest** | Installable app with icons |
+| Funcionalidade | Implementação |
+|----------------|---------------|
+| **Service Worker** | Cache offline (estratégia cache-first) |
+| **Web App Manifest** | App instalável com ícones |
 
 ---
 
-## 📦 Installation
+## 📦 Instalação
 
-### Option 1: Use Online (PWA)
+### Opção 1: Usar Online (PWA)
 ```bash
-# Simply visit the hosted version and install as PWA
-# (Add to Home Screen on mobile)
+# Simplesmente visite a versão hospedada e instale como PWA
+# (Adicionar à Tela Inicial no mobile)
 ```
 
-### Option 2: Self-Host
+### Opção 2: Auto-Hospedar
 ```bash
-# Clone the repository
+# Clone o repositório
 git clone https://github.com/L2-ootm/L2-Password-Manager.git
 cd L2-Password-Manager
 
-# Serve with any static HTTP server
+# Sirva com qualquer servidor HTTP estático
 npx http-server -p 3000 -c-1
 
-# Open in browser
+# Abra no navegador
 open http://localhost:3000
 ```
 
-### Option 3: Development
+### Opção 3: Desenvolvimento
 ```bash
-# Clone and install dependencies
+# Clone e instale dependências
 git clone https://github.com/L2-ootm/L2-Password-Manager.git
 cd L2-Password-Manager
 
-# Install dev dependencies (optional)
+# Instale dependências dev (opcional)
 npm install
 
-# Start development server with live reload
+# Inicie servidor de desenvolvimento com live reload
 npm run dev
 ```
 
 ---
 
-## 📖 Usage Guide
+## 📖 Guia de Uso
 
-### First Time Setup
-1. Open L2 Vault
-2. Create a **Master Password** (minimum 8 characters)
-3. Your vault is created and encrypted
+### Primeira Configuração
+1. Abra o L2 Vault
+2. Crie uma **Senha Mestra** (mínimo 8 caracteres)
+3. Seu cofre está criado e criptografado
 
-### Daily Use
-| Action | Result |
-|--------|--------|
-| **Single tap** on credential | Copies password |
-| **Double tap** on credential | Copies email/username |
-| **Long press** on credential | Opens context menu |
-| **Right-click** (desktop) | Opens context menu |
-| **Click + (FAB)** | Add new credential |
-| **Swipe left/right** (lock screen) | Switch between vaults |
+### Uso Diário
+| Ação | Resultado |
+|------|-----------|
+| **Toque único** na credencial | Copia senha |
+| **Toque duplo** na credencial | Copia email/usuário |
+| **Toque longo** na credencial | Abre menu de contexto |
+| **Clique direito** (desktop) | Abre menu de contexto |
+| **Clique + (FAB)** | Adiciona nova credencial |
+| **Deslize esquerda/direita** (tela de bloqueio) | Troca entre cofres |
 
-### Keyboard Shortcuts
-| Shortcut | Action |
-|----------|--------|
-| `Enter` | Submit form |
-| `Escape` | Close modal |
-
----
-
-## 🚀 Advanced Features
-
-### Multi-Vault (Decoy Vaults)
-Create multiple isolated vaults, each with its own password:
-- **Swipe left/right** on lock screen to switch
-- Each vault has **separate encryption keys**
-- Separate **IndexedDB database** per vault
-- Perfect for **decoy/duress scenarios**
-
-### Auto Favicons
-Automatic site icon fetching with intelligent fallback:
-- **Providers**: Google, DuckDuckGo, Yandex
-- **Service Detection**: 50+ common services mapped
-- **Fallback**: Color-coded styled initials
-- **Caching**: 7-day localStorage cache
+### Atalhos de Teclado
+| Atalho | Ação |
+|--------|------|
+| `Enter` | Enviar formulário |
+| `Escape` | Fechar modal |
 
 ---
 
-## 🎲 Password Generator
+## 🚀 Funcionalidades Avançadas
 
-8 generation modes for every use case:
+### Multi-Cofre (Cofres Decoy)
+Crie múltiplos cofres isolados, cada um com sua própria senha:
+- **Deslize esquerda/direita** na tela de bloqueio para trocar
+- Cada cofre tem **chaves de criptografia separadas**
+- Banco de dados **IndexedDB separado** por cofre
+- Perfeito para **cenários de decoy/coação**
 
-| Mode | Description | Example |
-|------|-------------|---------|
-| 🔒 **Maximum Security** | All character types, 24+ chars | `Kx#9$mZp@2Qw!nL5` |
-| ⚛️ **Quantum Level** | XOR-mixed entropy pools | `äXp#7ß@kLm&2` |
-| 🧠 **Memorable** | Word combinations | `Cosmic-Dragon-Forge428!` |
-| 🎲 **Diceware** | Dictionary passphrase | `Cabin-Chess-delta-Crisp45` |
-| 🗣️ **Pronounceable** | Easy to speak/type | `Tobisake72` |
-| 🔢 **PIN** | Numeric only | `847293` |
-| 🔑 **Hexadecimal** | Crypto key format | `A7F3B2E94C1D` |
-| 🌐 **Base64** | URL-safe format | `xK9mPq2nLw5z` |
-
-### Strength Analysis
-- **Real-time strength meter** (0-100%)
-- **Crack time estimation** (based on 1T guesses/sec)
-- **Entropy calculation** in bits
+### Favicons Automáticos
+Busca automática de ícones de sites com fallback inteligente:
+- **Provedores**: Google, DuckDuckGo, Yandex
+- **Detecção de Serviços**: 50+ serviços comuns mapeados
+- **Fallback**: Iniciais estilizadas com cores
+- **Cache**: Cache em localStorage de 7 dias
 
 ---
 
-## 📚 API Reference
+## 🎲 Gerador de Senhas
 
-### Crypto Module (`src/crypto/`)
+8 modos de geração para cada caso de uso:
+
+| Modo | Descrição | Exemplo |
+|------|-----------|---------|
+| 🔒 **Segurança Máxima** | Todos os tipos de caracteres, 24+ chars | `Kx#9$mZp@2Qw!nL5` |
+| ⚛️ **Nível Quântico** | Pools de entropia misturados com XOR | `äXp#7ß@kLm&2` |
+| 🧠 **Memorável** | Combinações de palavras | `Cosmic-Dragon-Forge428!` |
+| 🎲 **Diceware** | Passphrase de dicionário | `Cabin-Chess-delta-Crisp45` |
+| 🗣️ **Pronunciável** | Fácil de falar/digitar | `Tobisake72` |
+| 🔢 **PIN** | Apenas numérico | `847293` |
+| 🔑 **Hexadecimal** | Formato de chave cripto | `A7F3B2E94C1D` |
+| 🌐 **Base64** | Formato URL-safe | `xK9mPq2nLw5z` |
+
+### Análise de Força
+- **Medidor de força em tempo real** (0-100%)
+- **Estimativa de tempo para quebrar** (baseado em 1T tentativas/seg)
+- **Cálculo de entropia** em bits
+
+---
+
+## 📚 Referência da API
+
+### Módulo Crypto (`src/crypto/`)
 
 #### `argon2.js`
 ```javascript
-// Create password hash
+// Criar hash de senha
 createPasswordHash(password) → { hash, salt }
 
-// Verify password
+// Verificar senha
 verifyStoredPassword(password, hash, salt) → boolean
 
-// Get encryption key material
+// Obter material de chave de criptografia
 getEncryptionKey(password, salt) → Uint8Array
 ```
 
 #### `aes.js`
 ```javascript
-// Encrypt data
+// Criptografar dados
 encrypt(data, key) → { ciphertext, iv }
 
-// Decrypt data
+// Descriptografar dados
 decrypt(ciphertext, iv, key) → string
 
-// Import key for Web Crypto
+// Importar chave para Web Crypto
 importKey(keyMaterial) → CryptoKey
 ```
 
 #### `generator.js`
 ```javascript
-// Generate passwords
+// Gerar senhas
 generateMaxSecurity(length) → string
 generateQuantum(length) → string
 generateMemorable(wordCount, numbers, symbols) → string
@@ -286,26 +291,26 @@ generatePIN(length) → string
 generateHex(length) → string
 generateBase64(length) → string
 
-// Analysis
+// Análise
 calculateStrength(password) → number (0-100)
 estimateCrackTime(password) → string
 getEntropyBits(password) → number
 ```
 
-### Storage Module (`src/storage/`)
+### Módulo Storage (`src/storage/`)
 
 #### `db.js`
 ```javascript
-// Initialize database
+// Inicializar banco de dados
 initDatabase() → Promise<IDBDatabase>
 
-// Credentials CRUD
+// CRUD de Credenciais
 addCredential(credential) → Promise<number>
 updateCredential(credential) → Promise<void>
 deleteCredential(id) → Promise<void>
 getAllCredentials() → Promise<Credential[]>
 
-// Settings
+// Configurações
 getSetting(key, default) → Promise<any>
 setSetting(key, value) → Promise<void>
 
@@ -316,14 +321,14 @@ importAllData(data) → Promise<void>
 
 #### `vaults.js`
 ```javascript
-// Vault management
+// Gerenciamento de cofres
 getAllVaults() → Vault[]
 createVault(name, options) → Vault
 deleteVault(vaultId) → Promise<void>
 getCurrentVaultId() → string
 setCurrentVault(vaultId) → void
 
-// Navigation
+// Navegação
 getNextVault(currentId) → Vault
 getPreviousVault(currentId) → Vault
 ```
@@ -332,120 +337,120 @@ getPreviousVault(currentId) → Vault
 
 ## 🗺️ Roadmap
 
-### ✅ Phase 1: Foundation (COMPLETE)
-- [x] Project structure (HTML, CSS, JS modules)
-- [x] Design system (dark/light themes, gold accents, glassmorphism)
-- [x] IndexedDB with AES-256-GCM encryption
-- [x] Master password with Argon2id key derivation
-- [x] Service Worker for offline PWA
+### ✅ Fase 1: Fundação (COMPLETA)
+- [x] Estrutura do projeto (HTML, CSS, módulos JS)
+- [x] Sistema de design (temas claro/escuro, acentos dourados, glassmorphism)
+- [x] IndexedDB com criptografia AES-256-GCM
+- [x] Senha mestra com derivação de chave Argon2id
+- [x] Service Worker para PWA offline
 
-### ✅ Phase 2: Core UI & CRUD (COMPLETE)
-- [x] Lock/unlock screen with branding
-- [x] Credential list with "Tap Flow"
-- [x] Add/edit credential modal
-- [x] Copy-to-clipboard with haptic feedback
-- [x] Search functionality
-- [x] Context menu (long-press)
+### ✅ Fase 2: UI Principal & CRUD (COMPLETA)
+- [x] Tela de bloqueio/desbloqueio com branding
+- [x] Lista de credenciais com "Tap Flow"
+- [x] Modal de adicionar/editar credencial
+- [x] Copiar para clipboard com feedback háptico
+- [x] Funcionalidade de busca
+- [x] Menu de contexto (toque longo)
 
-### ✅ Phase 3: Security & Backup (COMPLETE)
-- [x] Auto-lock (configurable timeout)
-- [x] Clipboard auto-clear
-- [x] Encrypted export (AES-GCM)
-- [x] Password-protected import
+### ✅ Fase 3: Segurança & Backup (COMPLETA)
+- [x] Auto-lock (timeout configurável)
+- [x] Limpeza automática de clipboard
+- [x] Export criptografado (AES-GCM)
+- [x] Import protegido por senha
 
-### ✅ Phase 4: Advanced Generator (COMPLETE)
-- [x] 8-mode password generator
-- [x] Strength meter with crack time
-- [x] Generator presets modal
+### ✅ Fase 4: Gerador Avançado (COMPLETA)
+- [x] Gerador de senhas 8-modos
+- [x] Medidor de força com tempo para quebrar
+- [x] Modal de presets do gerador
 
-### ✅ Phase 5: Multi-Vault (COMPLETE)
-- [x] Auto favicon fetching (3 providers)
-- [x] Styled initial fallback
-- [x] Decoy vaults (isolated databases)
-- [x] Swipe-to-switch vault navigation
-- [x] Vault indicator dots
+### ✅ Fase 5: Multi-Cofre (COMPLETA)
+- [x] Busca automática de favicons (3 provedores)
+- [x] Fallback de iniciais estilizadas
+- [x] Cofres decoy (bancos de dados isolados)
+- [x] Navegação por deslize para trocar cofres
+- [x] Indicadores de cofre (pontos)
 
-### 🔄 Phase 6: Security Dashboard (IN PROGRESS)
-- [ ] Weak password detection
-- [ ] Duplicate password warnings
-- [ ] Old password alerts (>90 days)
-- [ ] HaveIBeenPwned integration (k-anonymity API)
+### 🔄 Fase 6: Dashboard de Segurança (EM PROGRESSO)
+- [ ] Detecção de senhas fracas
+- [ ] Alertas de senhas duplicadas
+- [ ] Alertas de senhas antigas (>90 dias)
+- [ ] Integração HaveIBeenPwned (API k-anonymity)
 
-### 📋 Phase 7: Stealth Mode (PLANNED)
-- [ ] Notepad disguise UI
-- [ ] Secret trigger phrase ("L2VAULT")
-- [ ] Optional activation in settings
-- [ ] Functional fake calculator/notes
+### 📋 Fase 7: Modo Stealth (PLANEJADA)
+- [ ] UI disfarçada de bloco de notas
+- [ ] Frase secreta de gatilho ("L2VAULT")
+- [ ] Ativação opcional nas configurações
+- [ ] Calculadora/notas fake funcionais
 
-### 📋 Phase 8: Duress Mode (PLANNED)
-- [ ] Panic password option
-- [ ] Show fake/decoy credentials
-- [ ] Silent data wipe option
-- [ ] Hidden deactivation gesture
+### 📋 Fase 8: Modo Duress (PLANEJADA)
+- [ ] Opção de senha de pânico
+- [ ] Mostrar credenciais fake/decoy
+- [ ] Opção de wipe silencioso de dados
+- [ ] Gesto oculto de desativação
 
-### 📋 Phase 9: Time-Based Access (PLANNED)
-- [ ] Per-credential schedules
-- [ ] Day of week restrictions
-- [ ] Time range visibility
-- [ ] Hidden outside schedule
+### 📋 Fase 9: Acesso Baseado em Tempo (PLANEJADA)
+- [ ] Agendamentos por credencial
+- [ ] Restrições por dia da semana
+- [ ] Visibilidade por intervalo de tempo
+- [ ] Oculto fora do horário
 
-### 📋 Phase 10: QR Sync (PLANNED)
-- [ ] QR code generation for credentials
-- [ ] Camera-based QR scanning
-- [ ] Encrypted transfer without master password
-- [ ] Temporary session keys
+### 📋 Fase 10: Sync via QR (PLANEJADA)
+- [ ] Geração de QR code para credenciais
+- [ ] Scanner de QR via câmera
+- [ ] Transferência criptografada sem senha mestra
+- [ ] Chaves de sessão temporárias
 
-### 🔮 Phase 11: Native Port (FUTURE)
-- [ ] Android Studio + Kotlin setup
-- [ ] Jetpack Compose UI
-- [ ] Android Keystore integration
-- [ ] Biometric authentication (fingerprint/face)
-- [ ] SQLCipher encrypted database
+### 🔮 Fase 11: Port Nativo (FUTURO)
+- [ ] Setup Android Studio + Kotlin
+- [ ] UI com Jetpack Compose
+- [ ] Integração Android Keystore
+- [ ] Autenticação biométrica (impressão digital/face)
+- [ ] Banco de dados criptografado SQLCipher
 
-### 🔮 Phase 12: Advanced Security (FUTURE)
-- [ ] TOTP 2FA generator (Google Authenticator compatible)
-- [ ] Secure keyboard (anti-keylogger)
-- [ ] Root/jailbreak detection
-- [ ] Tamper detection (signature verification)
-- [ ] Self-destruct on invalid attempts
-
----
-
-## 🤝 Contributing
-
-We welcome contributions! Please follow these steps:
-
-1. **Fork** the repository
-2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Commit** your changes (`git commit -m 'feat: Add amazing feature'`)
-4. **Push** to the branch (`git push origin feature/amazing-feature`)
-5. **Open** a Pull Request
-
-### Commit Convention
-We follow [Conventional Commits](https://www.conventionalcommits.org/):
-- `feat:` New feature
-- `fix:` Bug fix
-- `docs:` Documentation
-- `style:` Formatting
-- `refactor:` Code restructure
-- `test:` Tests
-- `chore:` Maintenance
+### 🔮 Fase 12: Segurança Avançada (FUTURO)
+- [ ] Gerador TOTP 2FA (compatível Google Authenticator)
+- [ ] Teclado seguro (anti-keylogger)
+- [ ] Detecção de root/jailbreak
+- [ ] Detecção de tamper (verificação de assinatura)
+- [ ] Auto-destruição após tentativas inválidas
 
 ---
 
-## 📄 License
+## 🤝 Contribuindo
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+Contribuições são bem-vindas! Por favor, siga estes passos:
+
+1. **Fork** o repositório
+2. **Crie** uma branch de feature (`git checkout -b feature/funcionalidade-incrivel`)
+3. **Commit** suas mudanças (`git commit -m 'feat: Adiciona funcionalidade incrível'`)
+4. **Push** para a branch (`git push origin feature/funcionalidade-incrivel`)
+5. **Abra** um Pull Request
+
+### Convenção de Commits
+Seguimos [Conventional Commits](https://www.conventionalcommits.org/):
+- `feat:` Nova funcionalidade
+- `fix:` Correção de bug
+- `docs:` Documentação
+- `style:` Formatação
+- `refactor:` Reestruturação de código
+- `test:` Testes
+- `chore:` Manutenção
+
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a **Licença MIT** - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
 ---
 
 <p align="center">
-  <strong>Built with 🔐 by L2 Systems</strong><br>
-  <em>"Your secrets deserve a fortress."</em>
+  <strong>Construído com 🔐 por L2 Systems</strong><br>
+  <em>"Seus segredos merecem uma fortaleza."</em>
 </p>
 
 <p align="center">
-  <a href="https://github.com/L2-ootm/L2-Password-Manager">⭐ Star this repo</a> •
-  <a href="https://github.com/L2-ootm/L2-Password-Manager/issues">🐛 Report Bug</a> •
-  <a href="https://github.com/L2-ootm/L2-Password-Manager/issues">💡 Request Feature</a>
+  <a href="https://github.com/L2-ootm/L2-Password-Manager">⭐ Dê uma estrela</a> •
+  <a href="https://github.com/L2-ootm/L2-Password-Manager/issues">🐛 Reportar Bug</a> •
+  <a href="https://github.com/L2-ootm/L2-Password-Manager/issues">💡 Sugerir Feature</a>
 </p>
