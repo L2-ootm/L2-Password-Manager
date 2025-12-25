@@ -423,6 +423,14 @@ getPreviousVault(currentId) → Vault
 - [ ] Testes em dispositivos físicos
 - [ ] Publicação na Google Play Store
 
+### 📧 Fase 14: Sistema de Recuperação (FUTURO)
+- [ ] Configuração de email padrão da conta
+- [ ] Email de recuperação secundário
+- [ ] Backup criptografado automático para email
+- [ ] Integração com auto-destruição (enviar backup antes de apagar)
+- [ ] Decriptação de backup recebido por email
+- [ ] Verificação de identidade antes de recuperação
+
 ---
 
 ## 🤝 Contribuindo

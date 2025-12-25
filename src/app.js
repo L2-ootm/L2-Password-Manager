@@ -1194,19 +1194,32 @@ async function runBreachCheck() {
     try {
         // First, decrypt all passwords
         const decryptedCredentials = [];
+        console.log('Starting breach check. Total credentials:', credentials.length);
+
         for (const cred of credentials) {
+            console.log('Checking credential:', cred.title, 'has encryptedPassword:', !!cred.encryptedPassword, 'has iv:', !!cred.iv);
             if (cred.encryptedPassword && cred.iv) {
                 try {
                     const decryptedPassword = await decrypt(cred.encryptedPassword, cred.iv, encryptionKey);
+                    console.log('Decrypted password for:', cred.title, 'length:', decryptedPassword.length);
                     decryptedCredentials.push({
                         id: cred.id,
                         title: cred.title,
                         password: decryptedPassword
                     });
                 } catch (e) {
-                    console.warn('Failed to decrypt password for:', cred.title);
+                    console.warn('Failed to decrypt password for:', cred.title, 'Error:', e.message);
                 }
             }
+        }
+
+        console.log('Decrypted credentials count:', decryptedCredentials.length);
+
+        if (decryptedCredentials.length === 0) {
+            elements.breachProgress.classList.add('hidden');
+            elements.checkBreachesBtn.disabled = false;
+            showToast('Nenhuma senha encontrada para verificar', 'info');
+            return;
         }
 
         elements.breachProgressText.textContent = 'Verificando vazamentos...';

@@ -423,6 +423,14 @@ getPreviousVault(currentId) → Vault
 - [ ] Testing on physical devices
 - [ ] Publication on Google Play Store
 
+### 📧 Phase 14: Recovery System (FUTURE)
+- [ ] Default account email configuration
+- [ ] Secondary recovery email
+- [ ] Automatic encrypted backup to email
+- [ ] Self-destruct integration (send backup before wiping)
+- [ ] Decrypt backup received via email
+- [ ] Identity verification before recovery
+
 ---
 
 ## 🤝 Contributing
