@@ -50,6 +50,12 @@ import {
     switchVaultDb
 } from './storage/db.js';
 
+import {
+    analyzeSecurityHealth,
+    checkAllBreaches,
+    getScoreInfo
+} from './security/dashboard.js';
+
 // ========== App State ==========
 let encryptionKey = null;
 let autoLockTimer = null;
@@ -131,7 +137,24 @@ const elements = {
     contextMenu: $('context-menu'),
     ctxCopy: $('ctx-copy'),
     ctxEdit: $('ctx-edit'),
-    ctxDelete: $('ctx-delete')
+    ctxDelete: $('ctx-delete'),
+
+    // Security Dashboard
+    securityBtn: $('security-btn'),
+    securityModal: $('security-modal'),
+    closeSecurityBtn: $('close-security'),
+    securityScore: $('security-score'),
+    scoreLabel: $('score-label'),
+    scoreFill: $('score-fill'),
+    statTotal: $('stat-total'),
+    statWeak: $('stat-weak'),
+    statDuplicates: $('stat-duplicates'),
+    statOld: $('stat-old'),
+    securityIssues: $('security-issues'),
+    checkBreachesBtn: $('check-breaches-btn'),
+    breachProgress: $('breach-progress'),
+    breachProgressFill: $('breach-progress-fill'),
+    breachProgressText: $('breach-progress-text')
 };
 
 // ========== Initialization ==========
@@ -143,6 +166,7 @@ async function init() {
     setupContextMenu();
     setupGeneratorModal();
     initVaultSwitcher();
+    setupSecurityDashboard();
 
     // Listen for vault changes
     window.addEventListener('vaultChanged', handleVaultChange);
@@ -1070,6 +1094,123 @@ async function scheduleClipboardClear() {
             // Clipboard API may not be available
         }
     }, timeout);
+}
+
+// ========== Security Dashboard ==========
+function setupSecurityDashboard() {
+    if (!elements.securityBtn || !elements.securityModal) return;
+
+    // Open modal
+    elements.securityBtn.addEventListener('click', openSecurityDashboard);
+
+    // Close modal
+    elements.closeSecurityBtn?.addEventListener('click', closeSecurityModal);
+    elements.securityModal.querySelector('.modal-backdrop')?.addEventListener('click', closeSecurityModal);
+
+    // Breach check button
+    elements.checkBreachesBtn?.addEventListener('click', runBreachCheck);
+}
+
+function closeSecurityModal() {
+    elements.securityModal.classList.remove('active');
+}
+
+async function openSecurityDashboard() {
+    elements.securityModal.classList.add('active');
+
+    // Reset display
+    elements.securityScore.textContent = '--';
+    elements.scoreLabel.textContent = 'Analisando...';
+    elements.scoreFill.style.strokeDashoffset = '339.292';
+    elements.securityIssues.innerHTML = '<div class="no-issues"><span class="no-issues-icon">⏳</span>Analisando credenciais...</div>';
+
+    // Small delay for animation
+    await new Promise(r => setTimeout(r, 300));
+
+    // Analyze credentials
+    const report = analyzeSecurityHealth(credentials);
+
+    // Update stats
+    elements.statTotal.textContent = report.total;
+    elements.statWeak.textContent = report.summary.weakCount;
+    elements.statDuplicates.textContent = report.summary.duplicateCount;
+    elements.statOld.textContent = report.summary.oldCount;
+
+    // Update score with animation
+    const scoreInfo = getScoreInfo(report.score);
+    elements.securityScore.textContent = report.score;
+    elements.scoreLabel.textContent = scoreInfo.label;
+    elements.scoreFill.style.stroke = scoreInfo.color;
+
+    // Animate score ring (339.292 is circumference of r=54 circle)
+    const offset = 339.292 - (339.292 * report.score / 100);
+    elements.scoreFill.style.strokeDashoffset = offset;
+
+    // Render issues
+    renderSecurityIssues(report.issues);
+}
+
+function renderSecurityIssues(issues) {
+    if (issues.length === 0) {
+        elements.securityIssues.innerHTML = `
+            <div class="no-issues">
+                <span class="no-issues-icon">✅</span>
+                <p>Nenhum problema encontrado!</p>
+                <p style="font-size: var(--font-size-xs)">Suas senhas estão seguras.</p>
+            </div>
+        `;
+        return;
+    }
+
+    elements.securityIssues.innerHTML = issues.map(issue => `
+        <div class="issue-item ${issue.severity}">
+            <span class="issue-icon">${issue.icon}</span>
+            <div class="issue-content">
+                <div class="issue-title">${issue.title}</div>
+                <div class="issue-description">${issue.description}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function runBreachCheck() {
+    if (credentials.length === 0) {
+        showToast('Nenhuma credencial para verificar', 'info');
+        return;
+    }
+
+    // Show progress
+    elements.breachProgress.classList.remove('hidden');
+    elements.checkBreachesBtn.disabled = true;
+    elements.breachProgressFill.style.width = '0%';
+    elements.breachProgressText.textContent = 'Verificando...';
+
+    try {
+        const breached = await checkAllBreaches(credentials, (current, total) => {
+            const percent = Math.round((current / total) * 100);
+            elements.breachProgressFill.style.width = `${percent}%`;
+            elements.breachProgressText.textContent = `Verificando ${current}/${total}...`;
+        });
+
+        // Hide progress
+        elements.breachProgress.classList.add('hidden');
+        elements.checkBreachesBtn.disabled = false;
+
+        if (breached.length === 0) {
+            showToast('✅ Nenhuma senha vazada encontrada!', 'success');
+        } else {
+            showToast(`🚨 ${breached.length} senha(s) encontrada(s) em vazamentos!`, 'error');
+
+            // Re-analyze with breach data
+            await openSecurityDashboard();
+        }
+
+    } catch (error) {
+        console.error('Breach check failed:', error);
+        elements.breachProgress.classList.add('hidden');
+        elements.checkBreachesBtn.disabled = false;
+        showToast('Erro ao verificar vazamentos', 'error');
+    }
 }
 
 // ========== Start Application ==========
