@@ -1,0 +1,27 @@
+{
+  "name": "L2 Vault",
+  "short_name": "L2 Vault",
+  "description": "Gerenciador de Senhas Seguro - 100% Offline, Zero-Knowledge",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#D4AF37",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["security", "utilities"],
+  "lang": "pt-BR",
+  "dir": "ltr"
+}
