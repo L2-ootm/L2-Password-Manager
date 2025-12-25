@@ -37,6 +37,19 @@ import {
     importAllData
 } from './storage/db.js';
 
+import {
+    createCredentialIcon,
+    generateInitialIcon
+} from './utils/favicon.js';
+
+import {
+    initVaultSwitcher
+} from './ui/vault-switcher.js';
+
+import {
+    switchVaultDb
+} from './storage/db.js';
+
 // ========== App State ==========
 let encryptionKey = null;
 let autoLockTimer = null;
@@ -129,6 +142,10 @@ async function init() {
     setupEventListeners();
     setupContextMenu();
     setupGeneratorModal();
+    initVaultSwitcher();
+
+    // Listen for vault changes
+    window.addEventListener('vaultChanged', handleVaultChange);
 
     // Register service worker
     if ('serviceWorker' in navigator) {
@@ -469,6 +486,26 @@ function lockVault() {
     showToast('Cofre bloqueado', 'success');
 }
 
+/**
+ * Handle vault change event - reinitialize for new vault
+ */
+async function handleVaultChange(event) {
+    // Lock current vault first
+    encryptionKey = null;
+    credentials = [];
+    clearAutoLockTimer();
+
+    // Switch database to new vault
+    await switchVaultDb();
+
+    // Check if new vault has master password
+    await checkFirstTime();
+
+    // Clear any error messages
+    elements.lockStatus.textContent = '';
+    elements.lockStatus.className = 'status-text';
+}
+
 // ========== Credentials ==========
 async function loadCredentials() {
     credentials = await getAllCredentials();
@@ -501,17 +538,28 @@ function createCredentialElement(credential) {
     div.className = 'credential-item';
     div.dataset.id = credential.id;
 
-    // Get initial letter for icon
-    const initial = (credential.title || 'X').charAt(0).toUpperCase();
+    // Generate initial fallback first
+    const initialData = generateInitialIcon(credential.title);
 
     div.innerHTML = `
-    <div class="credential-icon">${initial}</div>
+    <div class="credential-icon">
+      <span class="credential-initial" style="background-color: ${initialData.bgColor}">${initialData.initial}</span>
+    </div>
     <div class="credential-info">
       <div class="credential-title">${escapeHtml(credential.title)}</div>
       <div class="credential-username">${escapeHtml(credential.username || '')}</div>
     </div>
     <span class="credential-category">${escapeHtml(credential.category || 'geral')}</span>
   `;
+
+    // Load favicon asynchronously
+    const iconContainer = div.querySelector('.credential-icon');
+    createCredentialIcon(credential.title).then(iconElement => {
+        iconContainer.innerHTML = '';
+        iconContainer.appendChild(iconElement.firstChild);
+    }).catch(() => {
+        // Keep initial fallback
+    });
 
     // Store credential data
     div._credential = credential;

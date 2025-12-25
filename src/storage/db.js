@@ -1,9 +1,11 @@
 /**
  * L2 Vault - IndexedDB Storage Module
  * Encrypted at-rest storage for credentials
+ * Supports multiple isolated vaults
  */
 
-const DB_NAME = 'L2Vault';
+import { getCurrentVaultId, getVaultDbName } from './vaults.js';
+
 const DB_VERSION = 1;
 const STORES = {
     AUTH: 'auth',
@@ -11,24 +13,38 @@ const STORES = {
     SETTINGS: 'settings'
 };
 
-let db = null;
+// Map of vault ID to database instance
+const dbInstances = new Map();
 
 /**
- * Opens and initializes the IndexedDB database
+ * Gets the database name for current vault
+ */
+function getDbName() {
+    return getVaultDbName(getCurrentVaultId());
+}
+
+/**
+ * Opens and initializes the IndexedDB database for current vault
  * @returns {Promise<IDBDatabase>}
  */
 export async function initDatabase() {
-    if (db) return db;
+    const dbName = getDbName();
+
+    // Check if already open
+    if (dbInstances.has(dbName)) {
+        return dbInstances.get(dbName);
+    }
 
     return new Promise((resolve, reject) => {
-        const request = indexedDB.open(DB_NAME, DB_VERSION);
+        const request = indexedDB.open(dbName, DB_VERSION);
 
         request.onerror = () => {
             reject(new Error('Falha ao abrir banco de dados'));
         };
 
         request.onsuccess = () => {
-            db = request.result;
+            const db = request.result;
+            dbInstances.set(dbName, db);
             resolve(db);
         };
 
@@ -353,15 +369,17 @@ export async function importAllData(data) {
 }
 
 /**
- * Completely wipes all data (factory reset)
+ * Completely wipes all data for current vault (factory reset)
  * @returns {Promise<void>}
  */
 export async function wipeAllData() {
+    const dbName = getDbName();
+
     return new Promise((resolve, reject) => {
-        const request = indexedDB.deleteDatabase(DB_NAME);
+        const request = indexedDB.deleteDatabase(dbName);
 
         request.onsuccess = () => {
-            db = null;
+            dbInstances.delete(dbName);
             resolve();
         };
 
@@ -369,4 +387,32 @@ export async function wipeAllData() {
             reject(new Error('Erro ao limpar dados'));
         };
     });
+}
+
+/**
+ * Closes the current vault database
+ */
+export function closeDatabase() {
+    const dbName = getDbName();
+    const db = dbInstances.get(dbName);
+
+    if (db) {
+        db.close();
+        dbInstances.delete(dbName);
+    }
+}
+
+/**
+ * Switch to a different vault's database
+ * Closes current and opens new one
+ */
+export async function switchVaultDb() {
+    // Close all open databases
+    dbInstances.forEach((db, name) => {
+        db.close();
+    });
+    dbInstances.clear();
+
+    // Initialize the new vault's database
+    return initDatabase();
 }

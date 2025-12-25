@@ -26,7 +26,12 @@
   <div id="app">
     <!-- Lock Screen -->
     <div id="lock-screen" class="screen active">
-      <div class="lock-container">
+      <!-- Vault Indicators -->
+      <div class="vault-indicators" id="vault-indicators">
+        <!-- Dots rendered dynamically -->
+      </div>
+
+      <div class="lock-container" id="lock-container">
         <div class="logo">
           <div class="logo-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -36,6 +41,7 @@
           </div>
           <h1 class="logo-text"><span class="logo-l2">L2</span> Vault</h1>
           <p class="logo-subtitle">Fortress Protocol</p>
+          <p class="vault-name" id="current-vault-name"></p>
         </div>
 
         <form id="unlock-form" class="unlock-form">
@@ -59,7 +65,20 @@
         </form>
 
         <p id="lock-status" class="status-text"></p>
+
+        <!-- Swipe Hint -->
+        <p class="swipe-hint" id="swipe-hint">
+          <span>← Deslize para trocar de cofre →</span>
+        </p>
       </div>
+
+      <!-- Add Vault Button -->
+      <button class="add-vault-btn" id="add-vault-btn" aria-label="Adicionar cofre">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+      </button>
     </div>
 
     <!-- Main Vault Screen -->

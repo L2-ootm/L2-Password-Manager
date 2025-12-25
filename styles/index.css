@@ -195,6 +195,109 @@ body {
   margin-top: var(--spacing-xs);
 }
 
+.vault-name {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin-top: var(--spacing-xs);
+  opacity: 0.8;
+}
+
+/* Vault Indicators */
+.vault-indicators {
+  position: absolute;
+  top: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--spacing-sm);
+  z-index: 10;
+}
+
+.vault-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.vault-dot.active {
+  width: 24px;
+  border-radius: var(--radius-full);
+  background: var(--accent);
+}
+
+.vault-dot:hover {
+  background: var(--text-muted);
+}
+
+.vault-dot.active:hover {
+  background: var(--accent-hover);
+}
+
+/* Swipe Hint */
+.swipe-hint {
+  margin-top: var(--spacing-2xl);
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.swipe-hint.visible {
+  opacity: 0.6;
+}
+
+/* Add Vault Button */
+.add-vault-btn {
+  position: absolute;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  width: 44px;
+  height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  opacity: 0;
+}
+
+.add-vault-btn.visible {
+  opacity: 1;
+}
+
+.add-vault-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.add-vault-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Lock Container Swipe */
+.lock-container {
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+
+.lock-container.swiping-left {
+  transform: translateX(-50px);
+  opacity: 0.5;
+}
+
+.lock-container.swiping-right {
+  transform: translateX(50px);
+  opacity: 0.5;
+}
+
 .unlock-form {
   display: flex;
   flex-direction: column;
@@ -484,6 +587,26 @@ body {
   font-weight: 600;
   font-size: var(--font-size-lg);
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.credential-favicon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.credential-initial {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: var(--font-size-lg);
+  text-transform: uppercase;
 }
 
 .credential-info {
