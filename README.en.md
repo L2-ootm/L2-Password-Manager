@@ -414,6 +414,15 @@ getPreviousVault(currentId) → Vault
 - [ ] Tamper detection (signature verification)
 - [ ] Self-destruct on invalid attempts
 
+### 🚀 Phase 13: Android Release (FINAL)
+- [ ] Complete translation of PWA code to Kotlin
+- [ ] Verification and testing in Android Studio
+- [ ] ProGuard/R8 configuration (obfuscation)
+- [ ] APK signing with production keystore
+- [ ] Release build (AAB for Play Store)
+- [ ] Testing on physical devices
+- [ ] Publication on Google Play Store
+
 ---
 
 ## 🤝 Contributing

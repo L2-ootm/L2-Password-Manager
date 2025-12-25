@@ -24,13 +24,13 @@
 - [Visão Geral](#-visão-geral)
 - [Funcionalidades](#-funcionalidades)
 - [Arquitetura de Segurança](#-arquitetura-de-segurança)
-- [Stack Tecnológica](#-stack-tecnológica)
+- [Stack Tecnológica](#%EF%B8%8F-stack-tecnológica)
 - [Instalação](#-instalação)
 - [Guia de Uso](#-guia-de-uso)
 - [Funcionalidades Avançadas](#-funcionalidades-avançadas)
 - [Gerador de Senhas](#-gerador-de-senhas)
 - [Referência da API](#-referência-da-api)
-- [Roadmap](#-roadmap)
+- [Roadmap](#%EF%B8%8F-roadmap)
 - [Contribuindo](#-contribuindo)
 - [Licença](#-licença)
 
@@ -413,6 +413,15 @@ getPreviousVault(currentId) → Vault
 - [ ] Detecção de root/jailbreak
 - [ ] Detecção de tamper (verificação de assinatura)
 - [ ] Auto-destruição após tentativas inválidas
+
+### 🚀 Fase 13: Release Android (FINAL)
+- [ ] Tradução completa do código PWA para Kotlin
+- [ ] Verificação e testes no Android Studio
+- [ ] Configuração de ProGuard/R8 (ofuscação)
+- [ ] Assinatura do APK com keystore de produção
+- [ ] Build de release (AAB para Play Store)
+- [ ] Testes em dispositivos físicos
+- [ ] Publicação na Google Play Store
 
 ---
 
