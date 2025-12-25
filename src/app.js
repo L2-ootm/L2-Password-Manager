@@ -56,6 +56,12 @@ import {
     getScoreInfo
 } from './security/dashboard.js';
 
+import {
+    initStealthMode,
+    toggleStealthMode,
+    isStealthEnabled
+} from './ui/stealth-mode.js';
+
 // ========== App State ==========
 let encryptionKey = null;
 let autoLockTimer = null;
@@ -1183,10 +1189,29 @@ async function runBreachCheck() {
     elements.breachProgress.classList.remove('hidden');
     elements.checkBreachesBtn.disabled = true;
     elements.breachProgressFill.style.width = '0%';
-    elements.breachProgressText.textContent = 'Verificando...';
+    elements.breachProgressText.textContent = 'Decriptando senhas...';
 
     try {
-        const breached = await checkAllBreaches(credentials, (current, total) => {
+        // First, decrypt all passwords
+        const decryptedCredentials = [];
+        for (const cred of credentials) {
+            if (cred.encryptedPassword && cred.iv) {
+                try {
+                    const decryptedPassword = await decrypt(cred.encryptedPassword, cred.iv, encryptionKey);
+                    decryptedCredentials.push({
+                        id: cred.id,
+                        title: cred.title,
+                        password: decryptedPassword
+                    });
+                } catch (e) {
+                    console.warn('Failed to decrypt password for:', cred.title);
+                }
+            }
+        }
+
+        elements.breachProgressText.textContent = 'Verificando vazamentos...';
+
+        const breached = await checkAllBreaches(decryptedCredentials, (current, total) => {
             const percent = Math.round((current / total) * 100);
             elements.breachProgressFill.style.width = `${percent}%`;
             elements.breachProgressText.textContent = `Verificando ${current}/${total}...`;
