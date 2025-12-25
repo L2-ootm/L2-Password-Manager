@@ -24,6 +24,14 @@ function getDbName() {
 }
 
 /**
+ * Gets the current vault's database instance
+ * @returns {IDBDatabase|null}
+ */
+function getDb() {
+    return dbInstances.get(getDbName()) || null;
+}
+
+/**
  * Opens and initializes the IndexedDB database for current vault
  * @returns {Promise<IDBDatabase>}
  */
@@ -85,7 +93,7 @@ export async function hasMasterPassword() {
     await initDatabase();
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.AUTH, 'readonly');
+        const tx = getDb().transaction(STORES.AUTH, 'readonly');
         const store = tx.objectStore(STORES.AUTH);
         const request = store.get('master');
 
@@ -109,7 +117,7 @@ export async function storeMasterPassword(hash, salt) {
     await initDatabase();
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.AUTH, 'readwrite');
+        const tx = getDb().transaction(STORES.AUTH, 'readwrite');
         const store = tx.objectStore(STORES.AUTH);
 
         const request = store.put({
@@ -132,7 +140,7 @@ export async function getMasterPasswordData() {
     await initDatabase();
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.AUTH, 'readonly');
+        const tx = getDb().transaction(STORES.AUTH, 'readonly');
         const store = tx.objectStore(STORES.AUTH);
         const request = store.get('master');
 
@@ -162,7 +170,7 @@ export async function addCredential(credential) {
     await initDatabase();
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.CREDENTIALS, 'readwrite');
+        const tx = getDb().transaction(STORES.CREDENTIALS, 'readwrite');
         const store = tx.objectStore(STORES.CREDENTIALS);
 
         const data = {
@@ -187,7 +195,7 @@ export async function updateCredential(credential) {
     await initDatabase();
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.CREDENTIALS, 'readwrite');
+        const tx = getDb().transaction(STORES.CREDENTIALS, 'readwrite');
         const store = tx.objectStore(STORES.CREDENTIALS);
 
         const data = {
@@ -211,7 +219,7 @@ export async function deleteCredential(id) {
     await initDatabase();
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.CREDENTIALS, 'readwrite');
+        const tx = getDb().transaction(STORES.CREDENTIALS, 'readwrite');
         const store = tx.objectStore(STORES.CREDENTIALS);
         const request = store.delete(id);
 
@@ -229,7 +237,7 @@ export async function getCredential(id) {
     await initDatabase();
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.CREDENTIALS, 'readonly');
+        const tx = getDb().transaction(STORES.CREDENTIALS, 'readonly');
         const store = tx.objectStore(STORES.CREDENTIALS);
         const request = store.get(id);
 
@@ -246,7 +254,7 @@ export async function getAllCredentials() {
     await initDatabase();
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.CREDENTIALS, 'readonly');
+        const tx = getDb().transaction(STORES.CREDENTIALS, 'readonly');
         const store = tx.objectStore(STORES.CREDENTIALS);
         const request = store.getAll();
 
@@ -263,7 +271,7 @@ export async function clearAllCredentials() {
     await initDatabase();
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.CREDENTIALS, 'readwrite');
+        const tx = getDb().transaction(STORES.CREDENTIALS, 'readwrite');
         const store = tx.objectStore(STORES.CREDENTIALS);
         const request = store.clear();
 
@@ -284,7 +292,7 @@ export async function getSetting(key, defaultValue = null) {
     await initDatabase();
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.SETTINGS, 'readonly');
+        const tx = getDb().transaction(STORES.SETTINGS, 'readonly');
         const store = tx.objectStore(STORES.SETTINGS);
         const request = store.get(key);
 
@@ -309,7 +317,7 @@ export async function setSetting(key, value) {
     await initDatabase();
 
     return new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.SETTINGS, 'readwrite');
+        const tx = getDb().transaction(STORES.SETTINGS, 'readwrite');
         const store = tx.objectStore(STORES.SETTINGS);
         const request = store.put({ key, value });
 
@@ -329,7 +337,7 @@ export async function exportAllData() {
 
     const credentials = await getAllCredentials();
     const settings = await new Promise((resolve, reject) => {
-        const tx = db.transaction(STORES.SETTINGS, 'readonly');
+        const tx = getDb().transaction(STORES.SETTINGS, 'readonly');
         const store = tx.objectStore(STORES.SETTINGS);
         const request = store.getAll();
 
