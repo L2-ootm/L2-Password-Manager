@@ -62,6 +62,15 @@ import {
     isStealthEnabled
 } from './ui/stealth-mode.js';
 
+import {
+    initDuressMode,
+    isDuressEnabled,
+    enableDuressMode,
+    disableDuressMode,
+    isPanicPassword,
+    getDuressCredentials
+} from './security/duress-mode.js';
+
 // ========== App State ==========
 let encryptionKey = null;
 let autoLockTimer = null;
@@ -160,7 +169,16 @@ const elements = {
     checkBreachesBtn: $('check-breaches-btn'),
     breachProgress: $('breach-progress'),
     breachProgressFill: $('breach-progress-fill'),
-    breachProgressText: $('breach-progress-text')
+    breachProgressText: $('breach-progress-text'),
+
+    // Stealth Mode
+    stealthToggle: $('stealth-toggle'),
+
+    // Duress Mode
+    duressToggle: $('duress-toggle'),
+    duressPasswordGroup: $('duress-password-group'),
+    duressPasswordInput: $('duress-password'),
+    saveDuressPasswordBtn: $('save-duress-password')
 };
 
 // ========== Initialization ==========
@@ -173,6 +191,10 @@ async function init() {
     setupGeneratorModal();
     initVaultSwitcher();
     setupSecurityDashboard();
+    initStealthMode();
+    setupStealthToggle();
+    initDuressMode();
+    setupDuressToggle();
 
     // Listen for vault changes
     window.addEventListener('vaultChanged', handleVaultChange);
@@ -1248,6 +1270,78 @@ async function runBreachCheck() {
         elements.breachProgress.classList.add('hidden');
         elements.checkBreachesBtn.disabled = false;
         showToast('Erro ao verificar vazamentos', 'error');
+    }
+}
+
+// ========== Stealth Mode Toggle ==========
+function setupStealthToggle() {
+    if (!elements.stealthToggle) return;
+
+    // Load saved preference
+    elements.stealthToggle.checked = isStealthEnabled();
+
+    // Handle toggle
+    elements.stealthToggle.addEventListener('change', (e) => {
+        toggleStealthMode(e.target.checked);
+        if (e.target.checked) {
+            showToast('👻 Modo Stealth ativado', 'success');
+        } else {
+            showToast('Modo Stealth desativado', 'info');
+        }
+    });
+}
+
+// ========== Duress Mode Toggle ==========
+function setupDuressToggle() {
+    if (!elements.duressToggle) return;
+
+    // Load saved preference
+    elements.duressToggle.checked = isDuressEnabled();
+
+    // Show/hide password group based on toggle state
+    if (elements.duressToggle.checked && elements.duressPasswordGroup) {
+        elements.duressPasswordGroup.classList.remove('hidden');
+    }
+
+    // Handle toggle
+    elements.duressToggle.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            // Show password group when enabled
+            if (elements.duressPasswordGroup) {
+                elements.duressPasswordGroup.classList.remove('hidden');
+            }
+            showToast('🆘 Configure a senha de pânico', 'info');
+        } else {
+            // Hide password group and disable duress
+            if (elements.duressPasswordGroup) {
+                elements.duressPasswordGroup.classList.add('hidden');
+            }
+            disableDuressMode();
+            showToast('Modo Duress desativado', 'info');
+        }
+    });
+
+    // Handle save duress password
+    if (elements.saveDuressPasswordBtn) {
+        elements.saveDuressPasswordBtn.addEventListener('click', async () => {
+            const password = elements.duressPasswordInput?.value?.trim();
+            if (!password || password.length < 4) {
+                showToast('Senha de pânico deve ter pelo menos 4 caracteres', 'error');
+                return;
+            }
+
+            try {
+                // Hash the panic password using same method as master password
+                const { hash } = await createPasswordHash(password);
+                await enableDuressMode(hash);
+
+                elements.duressPasswordInput.value = '';
+                showToast('🆘 Senha de pânico configurada!', 'success');
+            } catch (error) {
+                console.error('Failed to save duress password:', error);
+                showToast('Erro ao salvar senha de pânico', 'error');
+            }
+        });
     }
 }
 
