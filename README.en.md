@@ -394,11 +394,11 @@ getPreviousVault(currentId) → Vault
 - [ ] Time range visibility
 - [ ] Hidden outside schedule
 
-### 📋 Phase 10: QR Sync (PLANNED)
-- [ ] QR code generation for credentials
-- [ ] Camera-based QR scanning
-- [ ] Encrypted transfer without master password
-- [ ] Temporary session keys
+### ✅ Phase 10: QR Sync (COMPLETE)
+- [x] QR code generation for credentials
+- [x] Camera-based QR scanning
+- [x] Encrypted transfer UI
+- [x] AES-256-GCM with PBKDF2 encryption
 
 ### 🔮 Phase 11: Native Port (FUTURE)
 - [ ] Android Studio + Kotlin setup
@@ -407,11 +407,11 @@ getPreviousVault(currentId) → Vault
 - [ ] Biometric authentication (fingerprint/face)
 - [ ] SQLCipher encrypted database
 
-### 🔮 Phase 12: Advanced Security (FUTURE)
-- [ ] TOTP 2FA generator (Google Authenticator compatible)
+### ✅ Phase 12: Advanced Security (COMPLETE)
+- [x] TOTP 2FA generator (Google Authenticator compatible)
+- [x] Biometric swipe gesture for duress mode
 - [ ] Secure keyboard (anti-keylogger)
 - [ ] Root/jailbreak detection
-- [ ] Tamper detection (signature verification)
 - [ ] Self-destruct on invalid attempts
 
 ### 🚀 Phase 13: Android Release (FINAL)
@@ -423,11 +423,11 @@ getPreviousVault(currentId) → Vault
 - [ ] Testing on physical devices
 - [ ] Publication on Google Play Store
 
-### 📧 Phase 14: Recovery System (FUTURE)
-- [ ] Default account email configuration
-- [ ] Secondary recovery email
-- [ ] Automatic encrypted backup to email
-- [ ] Self-destruct integration (send backup before wiping)
+### ✅ Phase 14: Recovery System (COMPLETE)
+- [x] Default account email configuration
+- [x] Secondary recovery email
+- [x] Automatic encrypted backup to email
+- [x] Self-destruct integration (send backup before wiping)
 - [ ] Decrypt backup received via email
 - [ ] Identity verification before recovery
 

@@ -420,6 +420,58 @@
           </div>
 
           <div class="settings-section">
+            <h4>📧 Recuperação de Conta</h4>
+            <p class="section-description">Configure emails para backup automático e recuperação.</p>
+            <div class="email-recovery-form">
+              <div class="form-group">
+                <label for="primary-email">Email Principal</label>
+                <input type="email" id="primary-email" placeholder="seu@email.com">
+              </div>
+              <div class="form-group">
+                <label for="recovery-email">Email de Recuperação</label>
+                <input type="email" id="recovery-email" placeholder="backup@email.com">
+              </div>
+              <div class="setting-item">
+                <span>Backup Automático</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="auto-backup-toggle">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="form-group" id="backup-frequency-group">
+                <label for="backup-frequency">Frequência</label>
+                <select id="backup-frequency">
+                  <option value="daily">Diário</option>
+                  <option value="weekly" selected>Semanal</option>
+                  <option value="monthly">Mensal</option>
+                </select>
+              </div>
+              <button id="save-email-config" class="btn btn-secondary">Salvar Configurações</button>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h4>🔑 Autenticador 2FA</h4>
+            <p class="section-description">Gerador de códigos TOTP (compatível com Google Authenticator).</p>
+            <div class="totp-controls">
+              <button id="add-totp-btn" class="btn btn-secondary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+                Adicionar Conta 2FA
+              </button>
+              <button id="view-totp-btn" class="btn btn-secondary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                Ver Códigos
+              </button>
+            </div>
+          </div>
+
+          <div class="settings-section">
             <h4>Conta</h4>
             <button id="change-password-btn" class="btn btn-secondary">Alterar Senha Mestra</button>
           </div>

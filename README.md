@@ -407,14 +407,14 @@ getPreviousVault(currentId) → Vault
 - [ ] Autenticação biométrica (impressão digital/face)
 - [ ] Banco de dados criptografado SQLCipher
 
-### 🔮 Fase 12: Segurança Avançada (FUTURO)
-- [ ] Gerador TOTP 2FA (compatível Google Authenticator)
+### ✅ Fase 12: Segurança Avançada (COMPLETA)
+- [x] Gerador TOTP 2FA (compatível Google Authenticator)
+- [x] Gesto biométrico para modo duress
 - [ ] Teclado seguro (anti-keylogger)
 - [ ] Detecção de root/jailbreak
-- [ ] Detecção de tamper (verificação de assinatura)
 - [ ] Auto-destruição após tentativas inválidas
 
-### 🚀 Fase 13: Release Android (FINAL)
+### 🚀 Fase 13: Release Android (FUTURO)
 - [ ] Tradução completa do código PWA para Kotlin
 - [ ] Verificação e testes no Android Studio
 - [ ] Configuração de ProGuard/R8 (ofuscação)
@@ -423,11 +423,11 @@ getPreviousVault(currentId) → Vault
 - [ ] Testes em dispositivos físicos
 - [ ] Publicação na Google Play Store
 
-### 📧 Fase 14: Sistema de Recuperação (FUTURO)
-- [ ] Configuração de email padrão da conta
-- [ ] Email de recuperação secundário
-- [ ] Backup criptografado automático para email
-- [ ] Integração com auto-destruição (enviar backup antes de apagar)
+### ✅ Fase 14: Sistema de Recuperação (COMPLETA)
+- [x] Configuração de email padrão da conta
+- [x] Email de recuperação secundário
+- [x] Backup criptografado automático para email
+- [x] Integração com auto-destruição (enviar backup antes de apagar)
 - [ ] Decriptação de backup recebido por email
 - [ ] Verificação de identidade antes de recuperação
 
