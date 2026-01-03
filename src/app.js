@@ -71,6 +71,26 @@ import {
     getDuressCredentials
 } from './security/duress-mode.js';
 
+import {
+    getTOTPEntries,
+    addTOTPEntry,
+    removeTOTPEntry,
+    generateTOTP,
+    getTOTPRemainingSeconds,
+    parseOTPAuthURI,
+    validateTOTPSecret
+} from './security/totp.js';
+
+import {
+    getEmailConfig,
+    saveEmailConfig,
+    isEmailConfigured,
+    createRecoveryBackup,
+    sendRecoveryBackup,
+    isAutoBackupDue,
+    validateEmail
+} from './recovery/email-recovery.js';
+
 // ========== App State ==========
 let encryptionKey = null;
 let autoLockTimer = null;
@@ -187,7 +207,18 @@ const elements = {
     timeAccessEnd: $('time-access-end'),
 
     // Biometric Button (swipe for decoy)
-    biometricBtn: $('biometric-btn')
+    biometricBtn: $('biometric-btn'),
+
+    // Email Recovery (Phase 14)
+    primaryEmail: $('primary-email'),
+    recoveryEmail: $('recovery-email'),
+    autoBackupToggle: $('auto-backup-toggle'),
+    backupFrequency: $('backup-frequency'),
+    saveEmailConfigBtn: $('save-email-config'),
+
+    // TOTP 2FA (Phase 12)
+    addTotpBtn: $('add-totp-btn'),
+    viewTotpBtn: $('view-totp-btn')
 };
 
 // ========== Initialization ==========
@@ -206,6 +237,8 @@ async function init() {
     setupDuressToggle();
     setupTimeAccessToggle();
     setupBiometricSwipe();
+    setupEmailRecovery();
+    setupTOTP();
 
     // Listen for vault changes
     window.addEventListener('vaultChanged', handleVaultChange);
@@ -1522,6 +1555,113 @@ async function unlockToDecoy() {
 
     // Log duress activation
     window.dispatchEvent(new CustomEvent('duressActivated'));
+}
+
+// ========== Email Recovery Setup (Phase 14) ==========
+function setupEmailRecovery() {
+    // Load saved config
+    const config = getEmailConfig();
+
+    if (elements.primaryEmail) {
+        elements.primaryEmail.value = config.primaryEmail || '';
+    }
+    if (elements.recoveryEmail) {
+        elements.recoveryEmail.value = config.recoveryEmail || '';
+    }
+    if (elements.autoBackupToggle) {
+        elements.autoBackupToggle.checked = config.autoBackup || false;
+    }
+    if (elements.backupFrequency) {
+        elements.backupFrequency.value = config.backupFrequency || 'weekly';
+    }
+
+    // Save button handler
+    if (elements.saveEmailConfigBtn) {
+        elements.saveEmailConfigBtn.addEventListener('click', async () => {
+            const primaryEmail = elements.primaryEmail?.value?.trim();
+            const recoveryEmail = elements.recoveryEmail?.value?.trim();
+
+            // Validate emails
+            if (primaryEmail && !validateEmail(primaryEmail)) {
+                showToast('Email principal inválido', 'error');
+                return;
+            }
+            if (recoveryEmail && !validateEmail(recoveryEmail)) {
+                showToast('Email de recuperação inválido', 'error');
+                return;
+            }
+
+            saveEmailConfig({
+                primaryEmail,
+                recoveryEmail,
+                autoBackup: elements.autoBackupToggle?.checked || false,
+                backupFrequency: elements.backupFrequency?.value || 'weekly'
+            });
+
+            showToast('Configurações de email salvas!', 'success');
+        });
+    }
+
+    // Check if auto-backup is due
+    if (isAutoBackupDue() && encryptionKey) {
+        console.log('Auto-backup is due, triggering...');
+        // Would trigger backup here
+    }
+}
+
+// ========== TOTP 2FA Setup (Phase 12) ==========
+function setupTOTP() {
+    // Add TOTP button handler
+    if (elements.addTotpBtn) {
+        elements.addTotpBtn.addEventListener('click', () => {
+            const secret = prompt('Cole a chave secreta (Base32) ou URI otpauth://:');
+            if (!secret) return;
+
+            // Try to parse as otpauth URI first
+            const parsed = parseOTPAuthURI(secret);
+
+            if (parsed) {
+                // It's a URI
+                addTOTPEntry(parsed);
+                showToast(`✅ ${parsed.name} adicionado!`, 'success');
+            } else if (validateTOTPSecret(secret)) {
+                // It's a raw secret
+                const name = prompt('Nome da conta:');
+                if (!name) return;
+
+                addTOTPEntry({
+                    name,
+                    secret,
+                    issuer: ''
+                });
+                showToast(`✅ ${name} adicionado!`, 'success');
+            } else {
+                showToast('Chave secreta inválida', 'error');
+            }
+        });
+    }
+
+    // View TOTP codes button handler
+    if (elements.viewTotpBtn) {
+        elements.viewTotpBtn.addEventListener('click', async () => {
+            const entries = getTOTPEntries();
+
+            if (entries.length === 0) {
+                showToast('Nenhuma conta 2FA cadastrada', 'info');
+                return;
+            }
+
+            // Generate codes for all entries
+            let message = '🔑 Códigos 2FA:\n\n';
+            for (const entry of entries) {
+                const code = await generateTOTP(entry);
+                const remaining = getTOTPRemainingSeconds(entry.period);
+                message += `${entry.issuer || ''} ${entry.name}: ${code} (${remaining}s)\n`;
+            }
+
+            alert(message);
+        });
+    }
 }
 
 // ========== Start Application ==========
