@@ -184,7 +184,10 @@ const elements = {
     timeAccessToggle: $('time-access-toggle'),
     timeAccessSettings: $('time-access-settings'),
     timeAccessStart: $('time-access-start'),
-    timeAccessEnd: $('time-access-end')
+    timeAccessEnd: $('time-access-end'),
+
+    // Biometric Button (swipe for decoy)
+    biometricBtn: $('biometric-btn')
 };
 
 // ========== Initialization ==========
@@ -202,6 +205,7 @@ async function init() {
     initDuressMode();
     setupDuressToggle();
     setupTimeAccessToggle();
+    setupBiometricSwipe();
 
     // Listen for vault changes
     window.addEventListener('vaultChanged', handleVaultChange);
@@ -1433,6 +1437,91 @@ function loadTimeAccessSettings() {
             elements.timeAccessEnd.value = settings.endTime;
         }
     }
+}
+
+// ========== Biometric Swipe Gesture (Duress Mode) ==========
+function setupBiometricSwipe() {
+    if (!elements.biometricBtn) return;
+
+    let startX = 0;
+    let startY = 0;
+    let isSwiping = false;
+    const SWIPE_THRESHOLD = 50; // pixels
+
+    // Touch start
+    elements.biometricBtn.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        isSwiping = false;
+    }, { passive: true });
+
+    // Touch move - detect swipe
+    elements.biometricBtn.addEventListener('touchmove', (e) => {
+        if (!startX) return;
+
+        const diffX = Math.abs(e.touches[0].clientX - startX);
+        const diffY = Math.abs(e.touches[0].clientY - startY);
+
+        // Horizontal swipe detected
+        if (diffX > SWIPE_THRESHOLD && diffX > diffY) {
+            isSwiping = true;
+            elements.biometricBtn.classList.add('swiping');
+        }
+    }, { passive: true });
+
+    // Touch end - execute action
+    elements.biometricBtn.addEventListener('touchend', (e) => {
+        if (isSwiping) {
+            // SWIPE = Unlock to DECOY vault
+            unlockToDecoy();
+        } else {
+            // CLICK = Normal biometric unlock
+            biometricUnlock();
+        }
+
+        elements.biometricBtn.classList.remove('swiping');
+        startX = 0;
+        startY = 0;
+        isSwiping = false;
+    });
+
+    // Mouse support for desktop testing
+    elements.biometricBtn.addEventListener('click', (e) => {
+        if (!isSwiping) {
+            biometricUnlock();
+        }
+    });
+}
+
+// Normal biometric unlock (simulated - real impl in Kotlin)
+async function biometricUnlock() {
+    // In PWA: we can't use real biometrics, show password field
+    // In Kotlin: will use BiometricPrompt.authenticate()
+    showToast('🔐 Digite sua senha mestre', 'info');
+    elements.masterPassword.focus();
+}
+
+// Unlock to decoy vault
+async function unlockToDecoy() {
+    showToast('🔓 Modo seguro ativado', 'info');
+
+    // Load fake credentials from duress mode
+    const fakeCredentials = getDuressCredentials();
+
+    // Display fake credentials
+    credentials = fakeCredentials.map(cred => ({
+        ...cred,
+        password: cred.fakePassword
+    }));
+
+    renderCredentials();
+
+    // Switch to vault screen
+    elements.lockScreen.classList.remove('active');
+    elements.vaultScreen.classList.add('active');
+
+    // Log duress activation
+    window.dispatchEvent(new CustomEvent('duressActivated'));
 }
 
 // ========== Start Application ==========

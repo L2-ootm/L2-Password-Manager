@@ -380,25 +380,25 @@ getPreviousVault(currentId) → Vault
 - [x] UI disfarçada de bloco de notas
 - [x] Frase secreta de gatilho ("L2VAULT")
 - [x] Ativação opcional nas configurações
-- [ ] Calculadora/notas fake funcionais
+- [x] Troca de manifest PWA (nome/ícone "Notas Rápidas")
 
 ### ✅ Fase 8: Modo Duress (COMPLETA)
 - [x] Opção de senha de pânico
 - [x] Mostrar credenciais fake/decoy
-- [ ] Opção de wipe silencioso de dados
-- [ ] Gesto oculto de desativação
+- [x] Wipe silencioso com backup por email
+- [x] Gesto biométrico (swipe = decoy, clique = normal)
 
-### � Fase 9: Acesso Baseado em Tempo (EM PROGRESSO)
-- [x] Agendamentos por credencial (módulo pronto)
+### ✅ Fase 9: Acesso Baseado em Tempo (COMPLETA)
+- [x] Agendamentos por credencial
 - [x] Restrições por dia da semana
 - [x] Visibilidade por intervalo de tempo
-- [ ] Página de configurações dedicada (opcional)
+- [x] Página de configurações (toggle opcional)
 
-### 📋 Fase 10: Sync via QR (PLANEJADA)
-- [x] Geração de QR code para credenciais (módulo pronto)
-- [x] Scanner de QR via câmera (módulo pronto)
-- [ ] UI de transferência criptografada
-- [ ] Chaves de sessão temporárias
+### ✅ Fase 10: Sync via QR (COMPLETA)
+- [x] Geração de QR code para credenciais
+- [x] Scanner de QR via câmera
+- [x] UI de transferência criptografada
+- [x] Criptografia AES-256-GCM com PBKDF2
 
 ### 🔮 Fase 11: Port Nativo (FUTURO)
 - [ ] Setup Android Studio + Kotlin

@@ -177,6 +177,7 @@ function showNotepad() {
     if (!stealthElements) createStealthUI();
 
     // Hide all app screens
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('hidden'));
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
 
     // Show notepad
@@ -187,6 +188,9 @@ function showNotepad() {
 
     // Change page title
     document.title = NOTEPAD_TITLE;
+
+    // Swap manifest for PWA (mobile will show notepad name/icon)
+    swapManifest('stealth');
 
     // Focus textarea
     setTimeout(() => stealthElements.textarea.focus(), 100);
@@ -202,6 +206,28 @@ function hideNotepad() {
 
     // Restore title
     document.title = 'L2 Vault';
+
+    // Restore normal manifest
+    swapManifest('normal');
+}
+
+/**
+ * Swap PWA manifest for stealth mode
+ * @param {'stealth' | 'normal'} mode
+ */
+function swapManifest(mode) {
+    const manifestLink = document.querySelector('link[rel="manifest"]');
+    if (!manifestLink) return;
+
+    const manifestPath = mode === 'stealth' ? '/manifest-stealth.json' : '/manifest.json';
+    manifestLink.href = manifestPath;
+
+    // Note: Manifest changes only take effect on PWA reinstall/update
+    // But title and theme-color can be changed immediately
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) {
+        themeColor.content = mode === 'stealth' ? '#FFC107' : '#D4AF37';
+    }
 }
 
 /**

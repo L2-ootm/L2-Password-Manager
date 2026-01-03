@@ -66,6 +66,16 @@
 
         <p id="lock-status" class="status-text"></p>
 
+        <!-- Biometric Unlock Button (swipe = decoy, click = normal) -->
+        <button type="button" class="biometric-btn" id="biometric-btn" aria-label="Desbloqueio biométrico"
+          title="Clique para desbloquear normalmente. Deslize para modo seguro.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path
+              d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364a6 6 0 0112 0c0 .898-.08 1.778-.232 2.632M12 11a9 9 0 00-9 9" />
+          </svg>
+          <span class="biometric-hint">← Deslize para modo seguro →</span>
+        </button>
+
         <!-- Swipe Hint -->
         <p class="swipe-hint" id="swipe-hint">
           <span>← Deslize para trocar de cofre →</span>
@@ -345,7 +355,8 @@
             <div class="setting-item">
               <div class="setting-label-group">
                 <span>⏰ Acesso por Horário</span>
-                <small style="display:block;color:var(--text-muted);font-size:11px;">Ocultar credenciais fora do horário configurado.</small>
+                <small style="display:block;color:var(--text-muted);font-size:11px;">Ocultar credenciais fora do horário
+                  configurado.</small>
               </div>
               <label class="toggle-switch">
                 <input type="checkbox" id="time-access-toggle">
@@ -376,6 +387,34 @@
                     <input type="time" id="time-access-end" value="18:00">
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <h4>📱 Transferência QR</h4>
+            <p class="section-description">Transfira credenciais entre dispositivos via QR Code criptografado.</p>
+            <div class="qr-sync-controls">
+              <div class="input-group">
+                <input type="password" id="qr-transfer-password" placeholder="Senha de transferência">
+              </div>
+              <div class="btn-group">
+                <button id="qr-generate-btn" class="btn btn-secondary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7" />
+                    <rect x="14" y="3" width="7" height="7" />
+                    <rect x="14" y="14" width="7" height="7" />
+                    <rect x="3" y="14" width="7" height="7" />
+                  </svg>
+                  Gerar QR
+                </button>
+                <button id="qr-scan-btn" class="btn btn-secondary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                    <circle cx="12" cy="13" r="4" />
+                  </svg>
+                  Escanear
+                </button>
               </div>
             </div>
           </div>
