@@ -370,34 +370,34 @@ getPreviousVault(currentId) → Vault
 - [x] Navegação por deslize para trocar cofres
 - [x] Indicadores de cofre (pontos)
 
-### 🔄 Fase 6: Dashboard de Segurança (EM PROGRESSO)
-- [ ] Detecção de senhas fracas
-- [ ] Alertas de senhas duplicadas
-- [ ] Alertas de senhas antigas (>90 dias)
-- [ ] Integração HaveIBeenPwned (API k-anonymity)
+### ✅ Fase 6: Dashboard de Segurança (COMPLETA)
+- [x] Detecção de senhas fracas
+- [x] Alertas de senhas duplicadas
+- [x] Alertas de senhas antigas (>90 dias)
+- [x] Integração HaveIBeenPwned (API k-anonymity)
 
-### 📋 Fase 7: Modo Stealth (PLANEJADA)
-- [ ] UI disfarçada de bloco de notas
-- [ ] Frase secreta de gatilho ("L2VAULT")
-- [ ] Ativação opcional nas configurações
+### ✅ Fase 7: Modo Stealth (COMPLETA)
+- [x] UI disfarçada de bloco de notas
+- [x] Frase secreta de gatilho ("L2VAULT")
+- [x] Ativação opcional nas configurações
 - [ ] Calculadora/notas fake funcionais
 
-### 📋 Fase 8: Modo Duress (PLANEJADA)
-- [ ] Opção de senha de pânico
-- [ ] Mostrar credenciais fake/decoy
+### ✅ Fase 8: Modo Duress (COMPLETA)
+- [x] Opção de senha de pânico
+- [x] Mostrar credenciais fake/decoy
 - [ ] Opção de wipe silencioso de dados
 - [ ] Gesto oculto de desativação
 
-### 📋 Fase 9: Acesso Baseado em Tempo (PLANEJADA)
-- [ ] Agendamentos por credencial
-- [ ] Restrições por dia da semana
-- [ ] Visibilidade por intervalo de tempo
-- [ ] Oculto fora do horário
+### � Fase 9: Acesso Baseado em Tempo (EM PROGRESSO)
+- [x] Agendamentos por credencial (módulo pronto)
+- [x] Restrições por dia da semana
+- [x] Visibilidade por intervalo de tempo
+- [ ] Página de configurações dedicada (opcional)
 
 ### 📋 Fase 10: Sync via QR (PLANEJADA)
-- [ ] Geração de QR code para credenciais
-- [ ] Scanner de QR via câmera
-- [ ] Transferência criptografada sem senha mestra
+- [x] Geração de QR code para credenciais (módulo pronto)
+- [x] Scanner de QR via câmera (módulo pronto)
+- [ ] UI de transferência criptografada
 - [ ] Chaves de sessão temporárias
 
 ### 🔮 Fase 11: Port Nativo (FUTURO)

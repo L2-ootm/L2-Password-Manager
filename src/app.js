@@ -178,7 +178,13 @@ const elements = {
     duressToggle: $('duress-toggle'),
     duressPasswordGroup: $('duress-password-group'),
     duressPasswordInput: $('duress-password'),
-    saveDuressPasswordBtn: $('save-duress-password')
+    saveDuressPasswordBtn: $('save-duress-password'),
+
+    // Time Access (optional feature)
+    timeAccessToggle: $('time-access-toggle'),
+    timeAccessSettings: $('time-access-settings'),
+    timeAccessStart: $('time-access-start'),
+    timeAccessEnd: $('time-access-end')
 };
 
 // ========== Initialization ==========
@@ -195,6 +201,7 @@ async function init() {
     setupStealthToggle();
     initDuressMode();
     setupDuressToggle();
+    setupTimeAccessToggle();
 
     // Listen for vault changes
     window.addEventListener('vaultChanged', handleVaultChange);
@@ -1342,6 +1349,89 @@ function setupDuressToggle() {
                 showToast('Erro ao salvar senha de pânico', 'error');
             }
         });
+    }
+}
+
+// ========== Time Access Toggle (Optional Feature) ==========
+function setupTimeAccessToggle() {
+    if (!elements.timeAccessToggle) return;
+
+    // Load saved preference
+    const enabled = localStorage.getItem('timeAccessEnabled') === 'true';
+    elements.timeAccessToggle.checked = enabled;
+
+    // Show/hide settings based on toggle
+    if (enabled && elements.timeAccessSettings) {
+        elements.timeAccessSettings.classList.remove('hidden');
+    }
+
+    // Handle toggle
+    elements.timeAccessToggle.addEventListener('change', (e) => {
+        localStorage.setItem('timeAccessEnabled', e.target.checked);
+
+        if (e.target.checked) {
+            if (elements.timeAccessSettings) {
+                elements.timeAccessSettings.classList.remove('hidden');
+            }
+            showToast('⏰ Acesso por horário ativado', 'success');
+        } else {
+            if (elements.timeAccessSettings) {
+                elements.timeAccessSettings.classList.add('hidden');
+            }
+            showToast('Acesso por horário desativado', 'info');
+        }
+    });
+
+    // Save time settings on change
+    if (elements.timeAccessStart) {
+        elements.timeAccessStart.addEventListener('change', saveTimeAccessSettings);
+    }
+    if (elements.timeAccessEnd) {
+        elements.timeAccessEnd.addEventListener('change', saveTimeAccessSettings);
+    }
+
+    // Save day selection on change
+    const dayCheckboxes = document.querySelectorAll('.day-checkboxes input');
+    dayCheckboxes.forEach(cb => {
+        cb.addEventListener('change', saveTimeAccessSettings);
+    });
+
+    // Load saved time settings
+    loadTimeAccessSettings();
+}
+
+function saveTimeAccessSettings() {
+    const days = [];
+    document.querySelectorAll('.day-checkboxes input:checked').forEach(cb => {
+        days.push(parseInt(cb.dataset.day));
+    });
+
+    const settings = {
+        days,
+        startTime: elements.timeAccessStart?.value || '09:00',
+        endTime: elements.timeAccessEnd?.value || '18:00'
+    };
+
+    localStorage.setItem('globalTimeAccess', JSON.stringify(settings));
+}
+
+function loadTimeAccessSettings() {
+    const saved = localStorage.getItem('globalTimeAccess');
+    if (saved) {
+        const settings = JSON.parse(saved);
+
+        // Restore day checkboxes
+        document.querySelectorAll('.day-checkboxes input').forEach(cb => {
+            cb.checked = settings.days.includes(parseInt(cb.dataset.day));
+        });
+
+        // Restore time inputs
+        if (elements.timeAccessStart) {
+            elements.timeAccessStart.value = settings.startTime;
+        }
+        if (elements.timeAccessEnd) {
+            elements.timeAccessEnd.value = settings.endTime;
+        }
     }
 }
 

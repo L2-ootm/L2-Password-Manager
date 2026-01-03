@@ -341,6 +341,46 @@
           </div>
 
           <div class="settings-section">
+            <h4>⚙️ Recursos Avançados</h4>
+            <div class="setting-item">
+              <div class="setting-label-group">
+                <span>⏰ Acesso por Horário</span>
+                <small style="display:block;color:var(--text-muted);font-size:11px;">Ocultar credenciais fora do horário configurado.</small>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="time-access-toggle">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="setting-item time-access-settings hidden" id="time-access-settings">
+              <div class="time-access-config">
+                <div class="days-selector">
+                  <span class="label">Dias permitidos:</span>
+                  <div class="day-checkboxes">
+                    <label><input type="checkbox" data-day="0"><span>D</span></label>
+                    <label><input type="checkbox" data-day="1" checked><span>S</span></label>
+                    <label><input type="checkbox" data-day="2" checked><span>T</span></label>
+                    <label><input type="checkbox" data-day="3" checked><span>Q</span></label>
+                    <label><input type="checkbox" data-day="4" checked><span>Q</span></label>
+                    <label><input type="checkbox" data-day="5" checked><span>S</span></label>
+                    <label><input type="checkbox" data-day="6"><span>S</span></label>
+                  </div>
+                </div>
+                <div class="time-range">
+                  <div class="time-input">
+                    <label>Início:</label>
+                    <input type="time" id="time-access-start" value="09:00">
+                  </div>
+                  <div class="time-input">
+                    <label>Fim:</label>
+                    <input type="time" id="time-access-end" value="18:00">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="settings-section">
             <h4>Conta</h4>
             <button id="change-password-btn" class="btn btn-secondary">Alterar Senha Mestra</button>
           </div>

@@ -1692,3 +1692,87 @@ body {
   padding: var(--spacing-xs) var(--spacing-sm);
   font-size: var(--font-size-xs);
 }
+
+/* Time Access Settings */
+.time-access-settings {
+  flex-direction: column;
+  padding: var(--spacing-md);
+  background: var(--surface-glass);
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-sm);
+}
+
+.time-access-config {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.days-selector .label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-xs);
+}
+
+.day-checkboxes {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.day-checkboxes label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.day-checkboxes input[type="checkbox"] {
+  display: none;
+}
+
+.day-checkboxes span {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.day-checkboxes input:checked + span {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--bg);
+}
+
+.time-range {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.time-input {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.time-input label {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.time-input input[type="time"] {
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--font-size-base);
+}
